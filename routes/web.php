@@ -20,17 +20,20 @@ Route::get('/', function () {
 
 
 Route::controller(NewsController::class)->prefix('admin')->group(function() {
-    Route::get('news/create', 'add');
+    Route::get('news/create', 'add')->middleware('auth');
 });
 
-//課題３
+
+
+//06課題３
 Route::controller(AAAController::class)->group(function() {
     Route::get('XXX','bbb');
 });
 
-//課題４
+//06課題４
+//07課題１
 Route::controller(ProfileController::class)->prefix('admin')->group(function() {
-    Route::get('profile/create','add');
+    Route::get('profile/create','add')->middleware('auth');
     Route::get('profile/edit','edit');
 });
 Auth::routes();
