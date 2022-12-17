@@ -55,6 +55,7 @@
                          
                          @guest
                          <li><a class="nav-link" href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
+                         
                          @else
                          <li class="nav-item dropdown">
                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expended="false">
