@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\News;
+use App\Models\History;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -50,16 +52,16 @@ class NewsController extends Controller
     }
 
 
-public function edit(Request $request)
-{
-    $news = News::find($request->id);
-    if (empty($news)){
-        abort(404);
+    public function edit(Request $request)
+    {
+        $news = News::find($request->id);
+        if (empty($news)){
+            abort(404);
+        }
+        return view('admin.news.edit', ['news_form' => $news]);
     }
-    return view('admin.news.edit', ['news_form' => $news]);
-}
 
-public function update(Request $request)
+    public function update(Request $request)
     {
         $this->validate($request, News::$rules);
         $news = News::find($request->id);
@@ -73,20 +75,25 @@ public function update(Request $request)
         }else{
             $news_form['image_path'] = $news->image_path;
         }
-        unset($news_form['image']);
-        unset($news_form['remove']);
-        unset($news_form['_token']);
+            unset($news_form['image']);
+            unset($news_form['remove']);
+            unset($news_form['_token']);
         
         $news->fill($news_form)->save();
         
-        return redirect('admin/news');
+        $history = new History();
+        $history->news_id = $news->id;
+        $history->edited_at = Carbon::now();
+        $history->save();
+        
+            return redirect('admin/news');
     }
     
-public function delete(Request $request)
-{
-    $news = News::find($request->id);
-    $news->delete();
+    public function delete(Request $request)
+    {
+        $news = News::find($request->id);
+        $news->delete();
     
-    return redirect('admin/news/');
-}
-}
+        return redirect('admin/news/');
+    }
+    }
