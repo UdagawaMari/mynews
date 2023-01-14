@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ProfileController;
+
+use App\Http\Controllers\NewsController as PublicNewsController;
+use App\Http\Controllers\ProfileController as PublicProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,3 +47,6 @@ Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->mi
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
+Route::get('/', [PublicProfileController::class, 'index'])->name('profile.index');
