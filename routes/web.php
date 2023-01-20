@@ -18,7 +18,7 @@ use App\Http\Controllers\ProfileController as PublicProfileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'test';
 });
 
 
@@ -48,5 +48,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', [PublicNewsController::class, 'index'])->name('news.index');
-Route::get('/', [PublicProfileController::class, 'index'])->name('profile.index');
+Route::get('/news', [PublicNewsController::class, 'index'])->name('news.index');
+Route::get('/profile', [PublicProfileController::class, 'index'])->name('profile.index');
